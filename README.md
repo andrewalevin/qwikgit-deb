@@ -2,6 +2,11 @@
 
 Qwik Git (`qw`) is a simple Bash script that automates git commit and push operations with a timestamp. Now available for Ubuntu as a **Debian package** via a **Personal Package Archive (PPA)**.
 
+
+[https://launchpad.net/qwikgit](https://launchpad.net/qwikgit)
+
+
+
 ## 📦 Installation via PPA
 
 ### 1️⃣ Add the PPA
