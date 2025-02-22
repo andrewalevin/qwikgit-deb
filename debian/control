@@ -1,8 +1,12 @@
-Package: qwikgit
-Version: 1.2
+Source: qwikgit
+Maintainer: Your Name <your@email.com>
 Section: utils
 Priority: optional
+Standards-Version: 4.5.0
+Build-Depends: debhelper (>= 12)
+
+Package: qwikgit
 Architecture: all
-Maintainer: Andrew Levin <your-email@example.com>
+Depends: git
 Description: Git auto-commit and push with timestamp
- A simple tool that automates git commit and push with a timestamp.
+ A simple Bash script to auto-commit and push Git repositories with a timestamp.
