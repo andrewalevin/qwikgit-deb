@@ -1,112 +1,121 @@
-# QwikGit - Git Auto-Commit and Push Script
+# 🍷 Qwik Git - Git Auto-Commit & Push with Timestamp
 
-QwikGit is a simple Bash script that automates the process of adding, committing, and pushing changes to a Git repository with a timestamp.
+Qwik Git (`qw`) is a simple Bash script that automates git commit and push operations with a timestamp. Now available for Ubuntu as a **Debian package** via a **Personal Package Archive (PPA)**.
 
-## Features
-- Automatically commits and pushes changes
-- Adds a timestamp to each commit
-- Allows custom commit messages
-- Includes version and help commands
+## 📦 Installation via PPA
 
-## Installation
-
-### Install from `.deb` package
-1. Download the `.deb` package:
-   ```bash
-   wget http://yourserver.com/qwikgit-1.0.deb
-   ```
-2. Install the package:
-   ```bash
-   sudo dpkg -i qwikgit-1.0.deb
-   ```
-3. Verify the installation:
-   ```bash
-   qwikgit -h
-   ```
-
-## Usage
-
-Run the script in a Git repository:
+### 1️⃣ Add the PPA
 ```bash
-qwikgit "Commit message"
+sudo add-apt-repository ppa:andrewalevin/qwikgit
+sudo apt update
 ```
 
-### Examples:
+### 2️⃣ Install Qwik Git
 ```bash
-qwikgit                 # Auto-commit with timestamp
-qwikgit "Fix bug"       # Commit with timestamp + custom message
-qwikgit Fix bug and build  # Commit with timestamp + custom message (without quotes)
+sudo apt install qwikgit
 ```
 
-### Additional Commands
+### 3️⃣ Usage
+
+#### Auto-commit with timestamp
 ```bash
-qwikgit -h, --help      # Show help information
-qwikgit -v, --version   # Show version information
+qw
 ```
 
-## Uninstallation
-To remove the package:
+#### Auto-commit with timestamp + custom message
 ```bash
-sudo apt remove qwikgit
+qw Fix bug in authentication
+```
+*(No need for quotes around the commit message!)*
+
+#### Show version
+```bash
+qw --version
 ```
 
-## Building the `.deb` Package
-
-### 1. Prepare the Directory Structure
+#### Show help
 ```bash
-mkdir -p qwikgit-1.0/usr/local/bin
-cd qwikgit-1.0
+qw --help
 ```
 
-### 2. Create the Script
+---
+
+## 🛠 Notes for Developers (Publishing a New Version)
+
+### 1️⃣ Prepare the Source Package
+On an Ubuntu machine, install required tools:
 ```bash
-nano usr/local/bin/qwikgit
-```
-Paste the script and make it executable:
-```bash
-chmod +x usr/local/bin/qwikgit
+sudo apt update && sudo apt install devscripts debhelper build-essential
 ```
 
-### 3. Create `DEBIAN/control` File
+### 2️⃣ Create Debian Packaging Files
+Inside the project folder (`qwikgit`), create a `debian` directory:
 ```bash
-mkdir DEBIAN
-nano DEBIAN/control
+mkdir -p qwikgit/debian
+cd qwikgit/debian
 ```
-Paste the following:
+
+#### **Create `control` file**
+```bash
+nano control
 ```
-Package: qwikgit
-Version: 1.0
+Paste this:
+```
+Source: qwikgit
+Maintainer: Your Name <your@email.com>
 Section: utils
 Priority: optional
+Standards-Version: 4.5.0
+Build-Depends: debhelper (>= 12)
+
+Package: qwikgit
 Architecture: all
 Depends: git
-Maintainer: Your Name <your.email@example.com>
-Description: Simple Git auto-commit and push script
+Description: Git auto-commit and push with timestamp
+ A simple Bash script to auto-commit and push Git repositories with a timestamp.
 ```
 
-### 4. Build the Package
+#### **Other Required Files**
 ```bash
-dpkg-deb --build qwikgit-1.0
+nano rules      # Add build rules
+nano changelog  # Add version changes
+nano copyright  # Specify license
+nano install    # Define installation paths
 ```
-This will generate `qwikgit-1.0.deb`.
 
-## Publishing the Package
+### 3️⃣ Build the Package
+```bash
+debuild -S -sa
+```
 
-### Hosting on a Web Server
-1. Upload `qwikgit-1.0.deb` to a web server.
-2. Add this line to `/etc/apt/sources.list`:
-   ```
-   deb [trusted=yes] http://yourserver.com/repo ./
-   ```
-3. Run:
-   ```bash
-   sudo apt update
-   sudo apt install qwikgit
-   ```
+### 4️⃣ Upload to PPA
+```bash
+dput ppa:andrewalevin/qwikgit qwikgit_1.2-0ubuntu1_source.changes
+```
 
-### Publishing on Launchpad (PPA)
-To distribute the package to Ubuntu users, consider creating a PPA on [Launchpad](https://launchpad.net/).
+### 5️⃣ Wait for Launchpad to Build and Publish
+Monitor build status at: [Launchpad PPA](https://launchpad.net/~andrewalevin/+archive/ubuntu/qwikgit)
 
-## License
-This project is licensed under the MIT License.
+Once published, users can install using:
+```bash
+sudo add-apt-repository ppa:andrewalevin/qwikgit
+sudo apt update
+sudo apt install qwikgit
+```
+
+---
+
+## 📜 License
+**MIT License** - Use freely under open-source terms.
+
+---
+
+## 🌟 Contributing
+Feel free to submit issues or pull requests on GitHub!
+
+**GitHub Repository:** [QwikGit on GitHub](https://github.com/andrewalevin/qwikgit)
+
+---
+
+🚀 Happy coding with Qwik Git! 🎉
 
